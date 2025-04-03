@@ -53,32 +53,8 @@ async def execute_code(page, code_body: str, variables: dict):
 - Keep timeouts short (max 3000ms) to fail fast and move to alternatives
 - Return error messages when elements are not found
 - Add print statements for debugging
-
-## Smart Element Selection Strategy
-```python
-async def find_best_element(page, selectors, timeout=3000):
-    for selector in selectors:
-        try:
-            elements = await page.query_selector_all(selector)
-            if elements and len(elements) == 1:
-                print(f"Found unique element with selector: {{selector}}")
-                return elements[0]
-            elif elements and len(elements) > 1:
-                print(f"Found {{len(elements)}} elements with selector: {{selector}}, using first")
-                return elements[0]
-        except Exception as e:
-            print(f"Error with selector {{selector}}: {{str(e)}}")
-            continue
-    
-    # Fallback to first selector with longer timeout
-    try:
-        print(f"Falling back to first selector with longer timeout: {{selectors[0]}}")
-        await page.wait_for_selector(selectors[0], state='visible', timeout=timeout)
-        return await page.query_selector(selectors[0])
-    except Exception as e:
-        print(f"Fallback selector failed: {{str(e)}}")
-        return None
-```
+- IMPORTANT: **Do not add any comments to the code**
+- IMPORTANT: **Minimize code size (use single-letter variables, compact coding patterns)**
 
 ## Error Handling and Resilience Patterns
 1. **Wrap actions in try-except blocks**:
@@ -172,12 +148,6 @@ class BrowserElement(BaseModel):
    - For text input: `await element.fill(value, timeout=3000)`
    - For hovering: `await element.hover(timeout=3000)`
    - For selecting options: `await page.select_option(selector, value)`
-
-4. **Element Validation Methods**:
-   - Check visibility: `await element.is_visible()`
-   - Check if enabled: `await element.is_enabled()`
-   - Get text content: `await element.text_content()`
-   - Get attribute: `await element.get_attribute(name)`
 
 5. **Debugging Methods**:
    - Log element details: `print(f"Element text: {{await element.text_content()}}")`
