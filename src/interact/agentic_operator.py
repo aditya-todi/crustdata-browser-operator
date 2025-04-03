@@ -198,7 +198,7 @@ class AgenticBrowserOperator(BrowserOperator):
                 break
 
             elements = await self.detect_interactive_elements(page)
-            await self.visualize_clickable_elements(page, elements)
+            await self.visualize_interactive_elements(page, elements)
 
             current_step._elements = elements
             steps.append(current_step)

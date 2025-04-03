@@ -90,7 +90,7 @@ class BrowserOperator(object):
 
         return [BrowserElement(**element) for element in interactive_elements]
 
-    async def visualize_clickable_elements(
+    async def visualize_interactive_elements(
         self, page: Page, elements: list[BrowserElement]
     ):
         await page.wait_for_load_state("domcontentloaded")
